@@ -8,6 +8,12 @@ import {
  } from 'react-router-dom'
 import Header from './components/Header'
 import Greeting from './components/Greeting'
+import BudgetSet from './components/BudgetSet'
+import TotalExpense from './components/TotalExpense'
+import Catagories from './components/Catagories'
+import BudgetCal from './components/BudgetCal'
+import ExpenseRecord from './components/ExpenseRecord'
+import ToastExampe from './components/ToastExampe'
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
@@ -20,8 +26,10 @@ function App() {
         <>
           <Header />
           <Greeting />
+          <BudgetCal />
+          <Catagories />
+          <ExpenseRecord />
         </>
-        
       )
     }
   ])

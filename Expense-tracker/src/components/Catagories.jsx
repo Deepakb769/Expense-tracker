@@ -8,9 +8,12 @@ import { LuShieldPlus } from "react-icons/lu";
 import { IoMdAdd } from "react-icons/io";
 
 
-const Catagories = () => {
+const Catagories = ({handleAddBudget, handleAddExpenses}) => {
   const [showFormA, setShowFormA] = useState(false);
   const [showFormB, setShowFormB] = useState(false);
+  const [budgetValue, setBudgetValue] = useState('')
+  const [expensesValue, setExpensesValue] = useState('');
+  
 
   const budgetForm = () => {
     setShowFormA(!showFormA);
@@ -20,20 +23,32 @@ const Catagories = () => {
     setShowFormB(!showFormB);
   }
 
+  const handleBudgetSubmit = () =>{
+    handleAddBudget(budgetValue); // passing the budget value to the parent component
+    setShowFormA(false);
+    setBudgetValue('');
+  }
+  
+  const handleExpenseSubmit = () => {
+    handleAddExpenses(expensesValue);
+    setShowFormB(false)
+    setExpensesValue('')
+  }
+
   return (
     <>
       <div className='catagory' style={{display : 'flex', alignItems : 'center', justifyContent : 'space-evenly', marginBottom : '15px'}}>
-        <InputGroup className='mb-3' style={{width : '10rem'}}>
+        <InputGroup style={{width : '10rem', borderRadius : '10px'}}>
           <InputGroup.Text id="basic-addon1"><BsSearch /></InputGroup.Text>
             <Form.Control 
               placeholder='Search'
               aria-label='search'
             />
         </InputGroup>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', backgroundColor : '#bfb6b6'}}><LuPizza /> Food & Drinks</span> 
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', backgroundColor : '#bfb6b6'}}><CiShoppingBasket /> Groceries</span>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', backgroundColor : '#bfb6b6'}}><BsSuitcase2 /> Travel</span>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', backgroundColor : '#bfb6b6'}}><LuShieldPlus /> Health</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><LuPizza /> Food & Drinks</span> 
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><CiShoppingBasket /> Groceries</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><BsSuitcase2 /> Travel</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><LuShieldPlus /> Health</span>
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={budgetForm}><IoMdAdd /> Add Budget</span>
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={expenseForm}><IoMdAdd /> Add Expenses</span>
 
@@ -55,8 +70,10 @@ const Catagories = () => {
                 type='number'
                 placeholder='Amount'
                 aria-describedby='Numbers'
+                value = {budgetValue}
+                onChange={(event) => setBudgetValue(event.target.value)}
               />
-              <Button variant='primary'>Add Budget</Button>
+              <Button variant='primary' onClick={handleBudgetSubmit}>Add Budget</Button>
             </Toast.Body>
           </Toast>
         </ToastContainer>
@@ -75,38 +92,27 @@ const Catagories = () => {
               <strong className='me-auto'>Add Expense Detail</strong>
             </Toast.Header>
             <Toast.Body style={{textAlign : 'center'}}>
-              <Form.Label>Sr.No</Form.Label>
-              <Form.Control 
-                type='number'
-                aria-describedby='Numbers'
-              />
-              <Form.Label>Expense Name</Form.Label>
-              <Form.Control 
-                type='name'
-                placeholder='Expense Name'
-                aria-describedby='Numbers'
-              />
-              <Form.Label>Date</Form.Label>
-              <Form.Control 
-                type='date'
-                aria-describedby='Numbers'
-              />
-              <Form.Label>Select Category</Form.Label>
-              <Form.Select aria-label='select example'>
-                <option>Select Options</option>
-                <option value="1">Food &Drinks</option>
-                <option value="2">Groceries</option>
-                <option value="3">Travel</option>
-                <option value="4">Health</option>
-              </Form.Select>
-              <Form.Label>Amount</Form.Label>
-              <Form.Control 
-                type='number'
-                placeholder='Amount'
-                aria-describedby='Numbers'
-              />
-              
-              <Button variant='primary'>Add Expense</Button>
+              <Form>
+                <Form.Group  controlId='formGroup' value={expensesValue} >
+                  <Form.Label>Sr.No</Form.Label>
+                  <Form.Control type='number' placeholder='1' readOnly={1} />
+                  <Form.Label>Expense Name</Form.Label>
+                  <Form.Control type='name' placeholder='Expense Name' />
+                  <Form.Label>Date</Form.Label>
+                  <Form.Control type='date' />
+                  <Form.Label>Selected Category</Form.Label>
+                  <Form.Select aria-label="Default select example">
+                    <option>Select Options</option>
+                    <option value="1">Food & Drinks</option>
+                    <option value="2">Groceries</option>
+                    <option value="3">Travel</option>
+                    <option value="4">Health</option>
+                  </Form.Select>
+                  <Form.Label>Amount</Form.Label>
+                  <Form.Control type='number' value={expensesValue} placeholder='Amount' onChange={(event) => setExpensesValue(event.target.value)}/>
+                </Form.Group>
+              </Form>
+              <Button variant='primary' onClick={handleExpenseSubmit}>Add Expense</Button>
             </Toast.Body>
           </Toast>
         </ToastContainer>

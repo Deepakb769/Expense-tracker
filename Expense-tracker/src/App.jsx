@@ -14,19 +14,32 @@ import Catagories from './components/Catagories'
 import BudgetCal from './components/BudgetCal'
 import ExpenseRecord from './components/ExpenseRecord'
 import ToastExampe from './components/ToastExampe'
+import UseMemoExam from './components/useMemoExam'
+
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   // const root = document.getElementById("root")
   const [budget, setBudget] = useState(0)
-  const [expenses, setExpenses] = useState(0)
+  const [expenses, setExpenses] = useState([])
+  // const [formData, setFormData] = useState({
+  //   id : 1,
+  //   name : '',
+  //   date : '',
+  //   category : '',
+  // })
 
-  const handleAddBudget = (value) => {
-    setBudget(value)
+  const handleAddBudget = (para) => {
+    setBudget(para)
   };
 
-  const handleAddExpenses = (show) => {
-    setExpenses(show)
+  //const handleAddExpenses = (show) => {
+  //  setExpenses(show)
+  //}
+
+  const handleFormSubmit = (data) => {
+    setExpenses((prevExpenses) => [...prevExpenses, data])
+
   }
 
   const router = createBrowserRouter([
@@ -36,9 +49,10 @@ function App() {
         <>
           <Header />
           <Greeting />
-          <BudgetCal value={budget} show={expenses} />
-          <Catagories handleAddBudget={handleAddBudget} handleAddExpenses={handleAddExpenses}/>
-          <ExpenseRecord />
+          <BudgetCal para={budget} show={expenses.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0)} />
+          <Catagories handleAddBudget={handleAddBudget} onSubmit={handleFormSubmit}/>
+          <ExpenseRecord onSubmit={handleFormSubmit} datas={expenses} />
+          {/* <UseMemoExam /> */}
         </>
       )
     }

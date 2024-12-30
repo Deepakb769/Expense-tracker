@@ -8,11 +8,22 @@ import { LuShieldPlus } from "react-icons/lu";
 import { IoMdAdd } from "react-icons/io";
 
 
-const Catagories = ({handleAddBudget, handleAddExpenses}) => {
+const Catagories = ({handleAddBudget, handleAddExpenses, onSubmit}) => {
   const [showFormA, setShowFormA] = useState(false);
   const [showFormB, setShowFormB] = useState(false);
   const [budgetValue, setBudgetValue] = useState('')
-  const [expensesValue, setExpensesValue] = useState('');
+  const [expensesValue, setExpenseValue] = useState('');
+  // const [expenseData, setExpenseData]= useState({
+  //   srNo : 1,
+  //   name : '',
+  //   date : '',
+  //   catagory : '',
+  //   // amount : '' 
+  // })
+  const [id, setId] = useState(1);
+  const [name, setName] = useState('')
+  const [date, setDate] = useState('')
+  const [category, setCategory] = useState('')
   
 
   const budgetForm = () => {
@@ -28,12 +39,37 @@ const Catagories = ({handleAddBudget, handleAddExpenses}) => {
     setShowFormA(false);
     setBudgetValue('');
   }
+
   
-  const handleExpenseSubmit = () => {
-    handleAddExpenses(expensesValue);
-    setShowFormB(false)
-    setExpensesValue('')
+  
+  // const handleExpenseSubmit = () => {
+  //   handleAddExpenses(expensesValue);
+  //   setShowFormB(false)
+  //   setExpenseValue('')
+  // }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const expenseData = {
+      id,
+      name,
+      date,
+      category,
+      amount : expensesValue
+    }
+    onSubmit(expenseData )
+    setId(id + 1)
+    setName('')
+    setDate('')
+    setCategory('')
+    setExpenseValue('')
   }
+
+  
+
+  // const handleSubmit = () => {
+  //   console.log("Hi Everyone!!!")
+  // }
 
   return (
     <>
@@ -73,7 +109,7 @@ const Catagories = ({handleAddBudget, handleAddExpenses}) => {
                 value = {budgetValue}
                 onChange={(event) => setBudgetValue(event.target.value)}
               />
-              <Button variant='primary' onClick={handleBudgetSubmit}>Add Budget</Button>
+              <Button variant='primary'  onClick={handleBudgetSubmit}>Add Budget</Button>
             </Toast.Body>
           </Toast>
         </ToastContainer>
@@ -92,16 +128,20 @@ const Catagories = ({handleAddBudget, handleAddExpenses}) => {
               <strong className='me-auto'>Add Expense Detail</strong>
             </Toast.Header>
             <Toast.Body style={{textAlign : 'center'}}>
-              <Form>
+              <Form onSubmit={handleSubmit}>
                 <Form.Group  controlId='formGroup' value={expensesValue} >
                   <Form.Label>Sr.No</Form.Label>
-                  <Form.Control type='number' placeholder='1' readOnly={1} />
+                  <Form.Control type='number' placeholder='1' value={id} onChange={(event) => setId(event.target.value)}/>
                   <Form.Label>Expense Name</Form.Label>
-                  <Form.Control type='name' placeholder='Expense Name' />
+                  <Form.Control type='name' placeholder='Expense Name' value={name} onChange={(event) => setName(event.target.value)}/>
                   <Form.Label>Date</Form.Label>
-                  <Form.Control type='date' />
-                  <Form.Label>Selected Category</Form.Label>
-                  <Form.Select aria-label="Default select example">
+                  <Form.Control type='date' value={date} onChange={(event) => setDate(event.target.value)} />
+                  <Form.Label >Selected Category</Form.Label>
+                  <Form.Select 
+                    name='category'
+                    value={category}
+                    onChange={(event) => setCategory(event.target.value)}
+                  >
                     <option>Select Options</option>
                     <option value="1">Food & Drinks</option>
                     <option value="2">Groceries</option>
@@ -109,10 +149,12 @@ const Catagories = ({handleAddBudget, handleAddExpenses}) => {
                     <option value="4">Health</option>
                   </Form.Select>
                   <Form.Label>Amount</Form.Label>
-                  <Form.Control type='number' value={expensesValue} placeholder='Amount' onChange={(event) => setExpensesValue(event.target.value)}/>
+                  {/* onChange={(event) => setExpensesValue(event.target.value)} */}
+                  <Form.Control type='number'  placeholder='Amount' onChange={(event) => setExpenseValue(event.target.value)} />
                 </Form.Group>
+                <Button variant='primary' type='submit' >Add Expense</Button>
               </Form>
-              <Button variant='primary' onClick={handleExpenseSubmit}>Add Expense</Button>
+              
             </Toast.Body>
           </Toast>
         </ToastContainer>

@@ -1,7 +1,11 @@
-import React from 'react'
+import { useState } from 'react'
 import { Table } from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 
 const ExpenseRecord = ({datas}) => {
+  // const [filteredData, setFilteredData] = useState(datas);
+  // const [selectedCategory, setSelectedCategory] = useState('All');
+
   return (
     <>
       <Table striped bordered hover size='sm'>
@@ -21,14 +25,16 @@ const ExpenseRecord = ({datas}) => {
                 <td>{data.name}</td>
                 <td>{data.amount}</td>
                 <td>{data.category}</td>
+                {/* <td className="d-flex">
+                  <Button variant="secondary">Edit</Button>
+                  <Button variant="secondary">Delete</Button>
+                </td> */}
               </tr>
             )))
           :(
             <h1 style={{textAlign : 'center', marginTop : '30px'}}>No Record Yet</h1>
           )}
         </tbody>
-        
-        
       </Table>
     </>
   )

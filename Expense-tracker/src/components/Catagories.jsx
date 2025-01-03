@@ -8,22 +8,18 @@ import { LuShieldPlus } from "react-icons/lu";
 import { IoMdAdd } from "react-icons/io";
 
 
-const Catagories = ({handleAddBudget, handleAddExpenses, onSubmit}) => {
+const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
   const [showFormA, setShowFormA] = useState(false);
   const [showFormB, setShowFormB] = useState(false);
   const [budgetValue, setBudgetValue] = useState('')
   const [expensesValue, setExpenseValue] = useState('');
-  // const [expenseData, setExpenseData]= useState({
-  //   srNo : 1,
-  //   name : '',
-  //   date : '',
-  //   catagory : '',
-  //   // amount : '' 
-  // })
   const [id, setId] = useState(1);
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
   const [category, setCategory] = useState('')
+  // const [allRecords, setAllRecords] = useState([]);
+  // const [filteredRecords, setFilteredRecords] = useState([]);
+
   
 
   const budgetForm = () => {
@@ -57,19 +53,22 @@ const Catagories = ({handleAddBudget, handleAddExpenses, onSubmit}) => {
       category,
       amount : expensesValue
     }
-    onSubmit(expenseData )
-    setId(id + 1)
-    setName('')
-    setDate('')
-    setCategory('')
-    setExpenseValue('')
+    // const updatedRecords = [...allRecords, expenseData];
+    // setAllRecords(updatedRecords);
+    // setFilteredRecords(updatedRecords);
+    onSubmit(expenseData);
+    setId(id + 1);
+    setName('');
+    setDate('');
+    setCategory('');
+    setExpenseValue('');
   }
 
-  
-
-  // const handleSubmit = () => {
-  //   console.log("Hi Everyone!!!")
+  // const filterByCategory = (category) => {
+  //   const filtered = allRecords.filter((record) => record.category === category);
+  //   setFilteredRecords(filtered);
   // }
+
 
   return (
     <>
@@ -81,10 +80,10 @@ const Catagories = ({handleAddBudget, handleAddExpenses, onSubmit}) => {
               aria-label='search'
             />
         </InputGroup>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><LuPizza /> Food & Drinks</span> 
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><CiShoppingBasket /> Groceries</span>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><BsSuitcase2 /> Travel</span>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}}><LuShieldPlus /> Health</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Food & Drinks")} ><LuPizza /> Food & Drinks</span> 
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Groceries")} ><CiShoppingBasket /> Groceries</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Travel")} ><BsSuitcase2 /> Travel</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Health")} ><LuShieldPlus /> Health</span>
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={budgetForm}><IoMdAdd /> Add Budget</span>
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={expenseForm}><IoMdAdd /> Add Expenses</span>
 
@@ -143,10 +142,10 @@ const Catagories = ({handleAddBudget, handleAddExpenses, onSubmit}) => {
                     onChange={(event) => setCategory(event.target.value)}
                   >
                     <option>Select Options</option>
-                    <option value="1">Food & Drinks</option>
-                    <option value="2">Groceries</option>
-                    <option value="3">Travel</option>
-                    <option value="4">Health</option>
+                    <option value="Food & Drinks">Food & Drinks</option>
+                    <option value="Groceryy">Groceries</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Health">Health</option>
                   </Form.Select>
                   <Form.Label>Amount</Form.Label>
                   {/* onChange={(event) => setExpensesValue(event.target.value)} */}
@@ -154,11 +153,18 @@ const Catagories = ({handleAddBudget, handleAddExpenses, onSubmit}) => {
                 </Form.Group>
                 <Button variant='primary' type='submit' >Add Expense</Button>
               </Form>
-              
             </Toast.Body>
           </Toast>
         </ToastContainer>
       </div>
+
+      {/* <div>
+        {filteredRecords.map(selectedCategory => (
+          <div key={selectedCategory.id}>
+            <p>{selectedCategory.name} - {selectedCategory.amount}</p>
+          </div>
+        ))}
+      </div> */}
     </>
   )
 }

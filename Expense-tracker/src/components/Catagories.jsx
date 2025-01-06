@@ -6,9 +6,10 @@ import { CiShoppingBasket } from "react-icons/ci";
 import { BsSuitcase2 } from "react-icons/bs";
 import { LuShieldPlus } from "react-icons/lu";
 import { IoMdAdd } from "react-icons/io";
+import { FaRegListAlt } from "react-icons/fa";
 
 
-const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
+const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCategory}) => {
   const [showFormA, setShowFormA] = useState(false);
   const [showFormB, setShowFormB] = useState(false);
   const [budgetValue, setBudgetValue] = useState('')
@@ -16,11 +17,8 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
   const [id, setId] = useState(1);
   const [name, setName] = useState('')
   const [date, setDate] = useState('')
-  const [category, setCategory] = useState('')
-  // const [allRecords, setAllRecords] = useState([]);
-  // const [filteredRecords, setFilteredRecords] = useState([]);
-
-  
+  const [category, setCategory] = useState('')  
+  // const [searchCategory, setSearchCategory] = useState(''); 
 
   const budgetForm = () => {
     setShowFormA(!showFormA);
@@ -35,14 +33,6 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
     setShowFormA(false);
     setBudgetValue('');
   }
-
-  
-  
-  // const handleExpenseSubmit = () => {
-  //   handleAddExpenses(expensesValue);
-  //   setShowFormB(false)
-  //   setExpenseValue('')
-  // }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -62,12 +52,9 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
     setDate('');
     setCategory('');
     setExpenseValue('');
-  }
 
-  // const filterByCategory = (category) => {
-  //   const filtered = allRecords.filter((record) => record.category === category);
-  //   setFilteredRecords(filtered);
-  // }
+    setShowFormB(!showFormB);
+  }
 
 
   return (
@@ -78,14 +65,17 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
             <Form.Control 
               placeholder='Search'
               aria-label='search'
+              // value={searchCategory}
+              onClick={handleSearchCategory}
             />
         </InputGroup>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("All Expenses")} ><FaRegListAlt /> All Expenses</span> 
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Food & Drinks")} ><LuPizza /> Food & Drinks</span> 
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Groceries")} ><CiShoppingBasket /> Groceries</span>
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Travel")} ><BsSuitcase2 /> Travel</span>
         <span style={{padding : '10px', margin : '10px', borderRadius : '15px', cursor : 'pointer', backgroundColor : '#bfb6b6'}} onClick={() => filterByCategory("Health")} ><LuShieldPlus /> Health</span>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={budgetForm}><IoMdAdd /> Add Budget</span>
-        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={expenseForm}><IoMdAdd /> Add Expenses</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={budgetForm}><IoMdAdd /> Budget</span>
+        <span style={{padding : '10px', margin : '10px', borderRadius : '15px', color : 'white', backgroundColor : 'blue', cursor : 'pointer'}} onClick={expenseForm}><IoMdAdd /> Expenses</span>
 
         {showFormA && (
           <div style={{
@@ -127,8 +117,8 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
               <strong className='me-auto'>Add Expense Detail</strong>
             </Toast.Header>
             <Toast.Body style={{textAlign : 'center'}}>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group  controlId='formGroup' value={expensesValue} >
+              <Form onSubmit={handleSubmit} >
+                <Form.Group  controlId='formGroup' value={expensesValue}>
                   <Form.Label>Sr.No</Form.Label>
                   <Form.Control type='number' placeholder='1' value={id} onChange={(event) => setId(event.target.value)}/>
                   <Form.Label>Expense Name</Form.Label>
@@ -143,12 +133,11 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory}) => {
                   >
                     <option>Select Options</option>
                     <option value="Food & Drinks">Food & Drinks</option>
-                    <option value="Groceryy">Groceries</option>
+                    <option value="Groceries">Groceries</option>
                     <option value="Travel">Travel</option>
                     <option value="Health">Health</option>
                   </Form.Select>
                   <Form.Label>Amount</Form.Label>
-                  {/* onChange={(event) => setExpensesValue(event.target.value)} */}
                   <Form.Control type='number'  placeholder='Amount' onChange={(event) => setExpenseValue(event.target.value)} />
                 </Form.Group>
                 <Button variant='primary' type='submit' >Add Expense</Button>

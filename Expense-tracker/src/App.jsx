@@ -17,75 +17,58 @@ import ToastExampe from './components/ToastExampe'
 import UseMemoExam from './components/useMemoExam'
 import GraphChart from './components/GraphChart'
 
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-
 function App() {
   // const root = document.getElementById("root")
   const [budget, setBudget] = useState(0)
   const [expenses, setExpenses] = useState([])
   const [filteredRecords, setFilteredRecords] = useState([])
+  const [searchQuery, setSearchQuery] = useState('')
 
   const handleAddBudget = (para) => {
     setBudget(para)
   };
-
-  //const handleAddExpenses = (show) => {
-  //  setExpenses(show)
-  //}
 
   const handleFormSubmit = (data) => {
     setExpenses((prevExpenses) => [...prevExpenses, data])
 
   }
 
-  // const filterByCategory = (category) => {
-  //   if(category){
-  //     const filtered = expenses.filter((record) => record.category === category);
-  //     console.log(filtered)
-  //     setFilteredRecords(filtered);
-  //   } else {
-  //     setFilteredRecords(expenses);
-  //   }
-  // }
-
-  const filterByCategory = (category) => {
-    if (category) {
-      const filtered = expenses.map((record) => {
-        if (record.category === category) {
-          return record
-        } else {
-          return 'No category assigned'
-        }
-      })
-      console.log(filtered);
+const filterByCategory = (category) => {
+  if (category === 'All Expenses') {
+    setFilteredRecords(expenses);
+  }
+  else {
+    const filtered = expenses.filter((record) => record.category === category);
+    if (filtered.length > 0) {
       setFilteredRecords(filtered);
-    }
-    else {
-      setFilteredRecords(expenses);
+    } else {
+      // Set filteredRecords as an empty array instead of a string
+      setFilteredRecords(['No Record Found']);
     }
   }
+}
 
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: (
-        <>
-          <Header />
-          <Greeting />
-          <BudgetCal para={budget} show={expenses.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0)} />
-          <Catagories handleAddBudget={handleAddBudget} onSubmit={handleFormSubmit} filterByCategory={filterByCategory} />
-          <ExpenseRecord datas={filteredRecords.length > 0 ? filteredRecords : expenses} />
-          <GraphChart />
-        </>
-      )
-    }
-  ])
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <>
+        <Header />
+        <Greeting />
+        <BudgetCal para={budget} show={expenses.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0)} />
+        <Catagories handleAddBudget={handleAddBudget} onSubmit={handleFormSubmit} filterByCategory={filterByCategory} />
+        <GraphChart graphs={filteredRecords.length > 0 ? filteredRecords : expenses} />
+        <ExpenseRecord datas={filteredRecords.length > 0 ? filteredRecords : expenses} />
+      </>
+    )
+  }
+])
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  )
+return (
+  <>
+    <RouterProvider router={router} />
+  </>
+)
 }
 
 export default App

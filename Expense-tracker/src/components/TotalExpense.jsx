@@ -12,8 +12,8 @@ const TotalExpense = ({show}) => {
             <Card.Subtitle style={{fontSize : '25px'}}>20,000/m</Card.Subtitle>
         </Card.Body>
       </Card> */}
-      <FloatingLabel label = "Total Expense" className="mb-3" >
-        <Form.Control type='number' value={show} style={{fontSize : '30px'}} />
+      <FloatingLabel label = "Total Expense" className="mb-3" style={{ borderRadius : '35px'}}>
+        <Form.Control value={show} style={{fontSize : '30px'}} />
       </FloatingLabel> 
     </>
   )

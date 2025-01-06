@@ -66,3 +66,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.dataCard.customerCard{
+  width : "50px"
+}

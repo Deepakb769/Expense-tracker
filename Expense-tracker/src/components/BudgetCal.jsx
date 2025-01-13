@@ -8,16 +8,28 @@ const BudgetCal = ({para, show}) => {
   let [remainValue, setRemainValue] = useState(0)
 
   useEffect(() => {
-    setRemainValue(para - show);
+    if(para > 0){
+      setRemainValue(para - show);
+    }
+    else{
+      setRemainValue('');
+    }
   }, [para, show]);
+
 
   return (
     <>
-    <Container className='d-flex' style={{justifyContent : 'space-between', margin : '25px', padding : '0'}}>
-      <BudgetSet para={para} readOnly />
-      <TotalExpense show={show} readOnly/>
-      <AmtRemain para={para} remainValue={remainValue} readOnly/>
-    </Container>
+      <Container className='d-flex' style={{display : 'flex', justifyContent : 'space-evenly', margin : '20px 94px', padding : '0'}}>
+        <div style={{marginRight : '0'}} >
+          <BudgetSet para={para} readOnly/>
+        </div>
+        <div style={{marginRight : '0'}} >
+          <TotalExpense show={show} budgetSet={para} readOnly/>
+        </div>
+        <div style={{marginRight : '0'}} >
+          <AmtRemain para={para} remainValue={remainValue} readOnly/>
+        </div>
+      </Container>    
     </>
   )
 }

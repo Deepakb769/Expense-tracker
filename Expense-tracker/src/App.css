@@ -1,8 +1,14 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap'); */
+
 #root {
   width: 100%;
+  font-family: "Arimo", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
   /* max-width: 1100px; */
   /* margin: 0 auto; */
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
   /* text-align: center; */
 }
 

@@ -2,9 +2,9 @@ import React from 'react'
 
 const Greeting = () => {
   return (
-    <div>
-      <h1>Hello, Deepak</h1>
-    </div>
+    <>
+      <h1 style={{margin : '0 7rem'}}>Hello, Deepak</h1>
+    </>
   )
 }
 

@@ -4,9 +4,11 @@ import { Navbar } from 'react-bootstrap'
 import { Container } from 'react-bootstrap'
 
 const Header = () => {
+
   return (
     <>
-      <Navbar className='bg-body-tertiary' style={{marginBottom : '30px', borderRadius : '25px', boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px;'}}>
+      <Navbar className='bg-body-tertiary' style={{fontSize : '24px' ,marginBottom : '30px', borderRadius : '25px', boxShadow: 'rgba(28, 28, 30, 0.1) 0px 8px 32px 0px'
+}}>
       <Container>
         <Navbar.Brand>Expense Tracker</Navbar.Brand>
       </Container>

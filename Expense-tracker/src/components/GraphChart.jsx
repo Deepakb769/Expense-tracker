@@ -19,7 +19,7 @@ const GraphChart = ({ graphs }) => {
                 label: 'Expenses',
                 data: values,
                 backgroundColor: [
-                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(62, 99, 99, 0.2)',
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
@@ -58,9 +58,9 @@ const GraphChart = ({ graphs }) => {
 
     return (
         <>
-            <div className="graph-area" style={{ padding: '2rem 7rem' }}>
+            <div className="graph-area" style={{}}>
                 {hasData ? (
-                    <div className="dataCard" style={{display : 'flex', justifyContent : 'space-between'}}>
+                    <div className="dataCard" style={{display : 'flex', justifyContent : 'space-evenly'}}>
                         <h3>Chart</h3>
                        
                         <div className="pie-container"

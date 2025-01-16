@@ -15,8 +15,7 @@ const TotalExpense = ({show, budgetSet, onAttemptToEdit}) => {
       onAttemptToEdit();
     }
   };
-
-  console.log(budgetSet)
+  
   return (
     <>
       {/* <FloatingLabel label = "Total Expense" className="mb-3" style={{ borderRadius : '35px'}}>

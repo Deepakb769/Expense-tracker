@@ -16,11 +16,12 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
   const [showFormB, setShowFormB] = useState(false);
   const [budgetValue, setBudgetValue] = useState('')
   const [expensesValue, setExpenseValue] = useState('');
-  const [id, setId] = useState(1);
+  const [id, setId] = useState([1]);
   const [name, setName] = useState('');
   const [date, setDate] = useState('');
   const [category, setCategory] = useState('');
   const [onSearch, setOnSearch] = useState('')
+  const [activeCategory, setActiveCategory] = useState('All Expenses')
 
   const budgetForm = () => {
     setShowFormA(!showFormA);
@@ -46,14 +47,18 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // if (parseFloat(budgetValue) <= 0) {
-    //   toast.error('Please set a valid budget before adding expenses');
-    //   return;
-    // }
     if(!name.trim() || !date.trim() || !category.trim() || !expensesValue.trim()){
       toast.error('Please fill all the fields');
       return;
    }
+
+   const amount = parseFloat(expensesValue);
+
+   if(isNaN(amount) || amount <= 0){
+    toast.error("Only positive numbers");
+    return;
+   }
+
    else {
     const expenseData = {
       id,
@@ -64,14 +69,19 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
     }
     
     onSubmit(expenseData);
-    setId(id + 1);
+    setId(id + 1)
     setName('');
     setDate('');
     setCategory('');
     setExpenseValue('');
 
     setShowFormB(!showFormB);
+    
   }
+}
+
+const categoryStyle = (category) => {
+  backgroundColor : activeCategory === category ? '#3498db' : 'white'
 }
 
 // const filterExpenses = expenses.filter((expenses) => expenses.name.includes(onSearch))
@@ -79,24 +89,32 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
 
   return (
     <>
-      <div className='catagory' style={{display : 'flex', alignItems : 'center', fontWeight : '200', justifyContent : 'space-evenly', gap : '10px', margin: '40px 6.1rem'}}>
-        <InputGroup style={{width : '10rem', borderRadius : '10px'}}>
-          <InputGroup.Text id="basic-addon1"><BsSearch /></InputGroup.Text>
+      <div className='catagory' style={{display : 'flex', alignItems : 'center',  fontWeight : '200', justifyContent : 'space-evenly', margin: '40px 6.1rem'}}>
+        <InputGroup style={{width : '10rem', backgroundColor : '#F5F5F5', borderRadius : '70px'}}>
+        <InputGroup.Text id="basic-addon1" style={{borderRadius : '70px',}}><BsSearch style={{marginRight : '10px'}}/>
             <Form.Control 
               placeholder='Search'
               aria-label='search'
               value={onSearch}
               onChange={(e) => {
-                setOnSearch(e.target.value); // Update search state
-                handleSearchCategory(e.target.value);
+                const searchTerm = e.target.value
+                setOnSearch(searchTerm); // Update search state
+                handleSearchCategory(searchTerm);
+                console.log(onSearch)
               }}
-            />
+              style={{border : 'none',
+                backgroundColor : '#F5F5F5',
+                padding : '0'
+              }}
+            /> 
+            </InputGroup.Text>
+            
         </InputGroup>
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5'}} onClick={() => filterByCategory("All Expenses")} ><FaRegListAlt /> All Expenses</span> 
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5'}} onClick={() => filterByCategory("Food & Drinks")} ><LuPizza /> Food & Drinks</span> 
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5'}} onClick={() => filterByCategory("Groceries")} ><CiShoppingBasket /> Groceries</span>
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5'}} onClick={() => filterByCategory("Travel")} ><BsSuitcase2 /> Travel</span>
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5'}} onClick={() => filterByCategory("Health")}><LuShieldPlus /> Health</span>
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('All Expenses')}} onClick={() => filterByCategory("All Expenses")} ><FaRegListAlt /> All Expenses</span> 
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Food & Drinks')}} onClick={() => filterByCategory("Food & Drinks")} ><LuPizza /> Food & Drinks</span> 
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Groceries')}} onClick={() => filterByCategory("Groceries")} ><CiShoppingBasket /> Groceries</span>
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Travel')}} onClick={() => filterByCategory("Travel")} ><BsSuitcase2 /> Travel</span>
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Health')}} onClick={() => filterByCategory("Health")}><LuShieldPlus /> Health</span>
         <span style={{padding : '10px 20px',  borderRadius : '15px', color : 'white', backgroundColor : '#5C6AFF', cursor : 'pointer'}} onClick={budgetForm}><IoMdAdd /> Budget</span>
         <span style={{padding : '10px 20px',  borderRadius : '15px', color : 'white', backgroundColor : '#5C6AFF', cursor : 'pointer'}} onClick={expenseForm}><IoMdAdd /> Expenses</span>
 
@@ -113,7 +131,7 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
               <strong className='me-auto'>Add Budget Amount</strong>
             </Toast.Header>
             <Toast.Body style={{textAlign : 'center'}}>
-              <form onSubmit={handleBudgetSubmit}>
+              <Form onSubmit={handleBudgetSubmit}>
               <Form.Label>Add Amount</Form.Label>
               <Form.Control 
                 type='number'
@@ -122,8 +140,8 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
                 value = {budgetValue}
                 onChange={(event) => setBudgetValue(event.target.value)}
               />
-              <Button variant='primary' style={{marginTop : '1rem'}}>Add Budget</Button>
-              </form>
+              <Button variant='primary' type='submit' style={{marginTop : '1rem'}}>Add Budget</Button>
+              </Form>
             </Toast.Body>
           </Toast>
         </ToastContainer>
@@ -144,8 +162,6 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
             <Toast.Body style={{textAlign : 'center'}}>
               <Form onSubmit={handleSubmit} >
                 <Form.Group  controlId='formGroup' value={expensesValue}>
-                  <Form.Label style={{marginTop : '1rem'}}>Sr.No</Form.Label>
-                  <Form.Control type='number' placeholder='1' value={id} onChange={(event) => setId(event.target.value)}/>
                   <Form.Label style={{marginTop : '1rem'}}>Expense Name</Form.Label>
                   <Form.Control type='name' placeholder='Expense Name' value={name} onChange={(event) => setName(event.target.value)}/>
                   <Form.Label style={{marginTop : '1rem'}}>Date</Form.Label>

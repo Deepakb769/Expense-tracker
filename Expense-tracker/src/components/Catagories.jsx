@@ -81,7 +81,10 @@ const Catagories = ({handleAddBudget, onSubmit, filterByCategory, handleSearchCa
 }
 
 const categoryStyle = (category) => {
-  backgroundColor : activeCategory === category ? '#3498db' : 'white'
+  return{
+    backgroundColor : activeCategory === category ? '#3498db' : 'white'
+
+  }
 }
 
 // const filterExpenses = expenses.filter((expenses) => expenses.name.includes(onSearch))
@@ -110,11 +113,11 @@ const categoryStyle = (category) => {
             </InputGroup.Text>
             
         </InputGroup>
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('All Expenses')}} onClick={() => filterByCategory("All Expenses")} ><FaRegListAlt /> All Expenses</span> 
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Food & Drinks')}} onClick={() => filterByCategory("Food & Drinks")} ><LuPizza /> Food & Drinks</span> 
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Groceries')}} onClick={() => filterByCategory("Groceries")} ><CiShoppingBasket /> Groceries</span>
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Travel')}} onClick={() => filterByCategory("Travel")} ><BsSuitcase2 /> Travel</span>
-        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', categoryStyle : ('Health')}} onClick={() => filterByCategory("Health")}><LuShieldPlus /> Health</span>
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', ...categoryStyle('All Expenses')}} onClick={() => {filterByCategory("All Expenses"); setActiveCategory("All Expenses")}} ><FaRegListAlt /> All Expenses</span> 
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', ...categoryStyle('Food & Drinks')}} onClick={() => {filterByCategory("Food & Drinks"); setActiveCategory("Food & Drinks")}} ><LuPizza /> Food & Drinks</span> 
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', ...categoryStyle('Groceries')}} onClick={() => {filterByCategory("Groceries"); setActiveCategory("Groceries")}} ><CiShoppingBasket /> Groceries</span>
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', ...categoryStyle('Travel')}} onClick={() => {filterByCategory("Travel"); setActiveCategory("Travel")}} ><BsSuitcase2 /> Travel</span>
+        <span style={{padding : '10px 20px',  borderRadius : '25px', cursor : 'pointer', backgroundColor : '#F5F5F5', ...categoryStyle('Health')}} onClick={() => {filterByCategory("Health"); setActiveCategory("Health")}}><LuShieldPlus /> Health</span>
         <span style={{padding : '10px 20px',  borderRadius : '15px', color : 'white', backgroundColor : '#5C6AFF', cursor : 'pointer'}} onClick={budgetForm}><IoMdAdd /> Budget</span>
         <span style={{padding : '10px 20px',  borderRadius : '15px', color : 'white', backgroundColor : '#5C6AFF', cursor : 'pointer'}} onClick={expenseForm}><IoMdAdd /> Expenses</span>
 

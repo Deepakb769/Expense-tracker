@@ -2,6 +2,7 @@ import React from 'react'
 import { FloatingLabel } from 'react-bootstrap'
 import { Form } from 'react-bootstrap'
 import { FaIndianRupeeSign } from "react-icons/fa6";
+import Remain from "../assets/Coins.svg";
 
 const AmtRemain = ({para, remainValue}) => {
   return (
@@ -50,6 +51,10 @@ const AmtRemain = ({para, remainValue}) => {
               paddingLeft: '3px',
             }} />
           </FloatingLabel>
+          <img src={Remain} alt="" style={{ height: '50px',
+           width: '55px',  
+           margin: '0 21px', 
+        }} />
           </span>
         ) 
          : 
@@ -71,15 +76,7 @@ const AmtRemain = ({para, remainValue}) => {
           }}
           >
 
-          {/* <span className="pen-label"  style={{display: 'flex',
-          alignItems: 'center', // Vertically align items
-          justifyContent: 'space-between', // Space items evenly
-          padding: '18px', // Add padding for equal spacing
-          boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-          borderRadius: '30px',
-          width: '350px',
-          backgroundColor: '#fff',}}> */}
-          {/* <FloatingLabel label = "Total Expense" className="mb-3" style={{ borderRadius : '35px'}}></FloatingLabel> */}
+          
           <FaIndianRupeeSign style={{margin : '0 0 8px 10px'}} />
           <Form.Control value={para}
             readOnly
@@ -94,6 +91,10 @@ const AmtRemain = ({para, remainValue}) => {
             }} />
           {/* </FloatingLabel> */}
         </FloatingLabel>
+        <img src={Remain} alt="" style={{ height: '50px',
+           width: '55px',  
+           margin: '0 21px', 
+        }} />
         </span>
         )
       }

@@ -87,7 +87,7 @@ const ExpenseRecord = ({ datas, setExpenses }) => {
             {datas.length > 0 ? (
               datas.map((data, index) => (
                 <tr key={index}>
-                  <td>{data.id}</td>
+                  <td>{index+1}</td>
                   <td>{data.name}</td>
                   <td>{data.amount}</td>
                   {/* <td>{data.category}</td> */}

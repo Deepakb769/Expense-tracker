@@ -7,9 +7,6 @@ import Remain from "../assets/Coins.svg";
 const AmtRemain = ({para, remainValue}) => {
   return (
     <>
-      {/* <FloatingLabel label="Remaining Amount"
-          className="mb-0"
-          style={{ width: '80%' }}> */}
         {remainValue > 0 ? (
           <span className="pen-label" style={{
             display: 'flex',
@@ -28,16 +25,6 @@ const AmtRemain = ({para, remainValue}) => {
           fontSize: '18px',
          }}>
           
-          {/* <span className="pen-label" style={{
-            display: 'flex',
-          alignItems: 'center', // Vertically align items
-          justifyContent: 'space-between', // Space items evenly
-          padding: '20px', // Add padding for equal spacing
-          boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-          borderRadius: '30px',
-          width: '450px',
-          backgroundColor: '#fff', // Optional for better visibility
-                 }}> */}
             <FaIndianRupeeSign style={{margin : '0 0 8px 10px'}}/>
             <Form.Control value={remainValue}
             readOnly
@@ -78,7 +65,7 @@ const AmtRemain = ({para, remainValue}) => {
 
           
           <FaIndianRupeeSign style={{margin : '0 0 8px 10px'}} />
-          <Form.Control value={para}
+          <Form.Control value={remainValue}
             readOnly
             style={{
               fontSize: '30px',
@@ -92,7 +79,7 @@ const AmtRemain = ({para, remainValue}) => {
           {/* </FloatingLabel> */}
         </FloatingLabel>
         <img src={Remain} alt="" style={{ height: '50px',
-           width: '55px',  
+           width: '60px',  
            margin: '0 21px', 
         }} />
         </span>

@@ -87,7 +87,6 @@ const categoryStyle = (category) => {
   }
 }
 
-// const filterExpenses = expenses.filter((expenses) => expenses.name.includes(onSearch))
 
 
   return (

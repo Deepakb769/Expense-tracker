@@ -11,6 +11,7 @@ import BudgetCal from './components/BudgetCal'
 // import ExpenseRecord from './components/ExpenseRecord'
 import ExpenseRecord from './components/ExpenseRecord'
 import GraphChart from './components/GraphChart'
+import State from './components/state'
 
 function App() {
   const [budget, setBudget] = useState(0)
@@ -71,6 +72,7 @@ function App() {
           <GraphChart graphs={filteredRecords.length > 0 ? filteredRecords : 0} expenses={expenses} />
           {filteredRecords.length === 0}
           <ExpenseRecord datas={filteredRecords.length > 0 ? filteredRecords : []} setExpenses={setExpenses} /> {filteredRecords.length === 0}
+          {/* <State /> */}
         </>
       )
     }

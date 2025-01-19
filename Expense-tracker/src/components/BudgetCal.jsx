@@ -8,12 +8,7 @@ const BudgetCal = ({para, show}) => {
   let [remainValue, setRemainValue] = useState(0)
 
   useEffect(() => {
-    if(para > 0){
-      setRemainValue(para - show);
-    }
-    else{
-      setRemainValue('');
-    }
+    setRemainValue(para-show)
   }, [para, show]);
 
 

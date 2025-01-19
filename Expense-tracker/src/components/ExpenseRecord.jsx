@@ -11,24 +11,7 @@ const ExpenseRecord = ({ datas, setExpenses }) => {
   const [editData, setEditData] = useState({});
   const [showEdit, setShowEdit] = useState(false)
 
-  // const handleDeleteClick = (srNo) => {
-  //   console.log(srNo)
-  //   setExpenses((prev) => prev.filter((expense) => expense.srNo !== srNo));
-  // }
-
-  // const handleDeleteClick = (srNo) => {
-  //   console.log('Deleting record with SrNo:', srNo);
-  //   setExpenses((prev) => {
-  //     const updatedExpenses = prev.filter((expense) => expense.srNo !== srNo);
-  //     return updatedExpenses;
-  //   });
-  // };
-
   const handleDeleteClick = (index) => {
-    // const updatedExpenses = expenses.filter((expense) => expense.srNo !== srNo)
-    // console.log(updatedExpenses, srNo)
-    // setExpenses(updatedExpenses)
-    // console.log("Running")
     setExpenses((prev) => prev.filter((_,i) => i !== index));
   }
 
@@ -39,11 +22,11 @@ const ExpenseRecord = ({ datas, setExpenses }) => {
     setEditData((prev) => ({ ...prev, [name]: value }));
   }
 
+
   const handleEditClick = (index) => {
       setEditingIndex(index);
       setEditData(datas[index]);
       setShowEdit(true);
-    // }
   }
 
   const handleSaveChange = () => {
@@ -129,6 +112,16 @@ const ExpenseRecord = ({ datas, setExpenses }) => {
                 <Form.Group controlId='formGroup'>
                   <Form.Label style={{ marginTop: '1rem' }}>Expense Name</Form.Label>
                   <Form.Control type='text' name='name' placeholder='Expense name' value={editData.name || ''} onChange={handleInputChange}></Form.Control>
+                  <Form.Label style={{ marginTop: '1rem' }}>Date</Form.Label>
+                  <Form.Control type='date' name='date' value={editData.date || ''} onChange={handleInputChange}></Form.Control>
+                  <Form.Label style={{ marginTop: '1rem' }}>Category</Form.Label>
+                  <Form.Select type='text' name='category' placeholder='Expense name' value={editData.category || ''} onChange={handleInputChange}>
+                  <option>Select Options</option>
+                    <option value="Food & Drinks">Food & Drinks</option>
+                    <option value="Groceries">Groceries</option>
+                    <option value="Travel">Travel</option>
+                    <option value="Health">Health</option>
+                  </Form.Select>
                   <Form.Label style={{ marginTop: '1rem' }}>Amount</Form.Label>
                   <Form.Control type='number' name='amount' placeholder='Amount' value={editData.amount || ''} onChange={handleInputChange}></Form.Control>
                   
